@@ -145,8 +145,10 @@ The following methods may be called to generate standard warning messages:
 | --------------------------------- | ----------- |
 | `manual_installer(path)`          | The user should execute an installer to complete the installation. `path` may be absolute, or relative to the Cask.
 | `path_environment_variable(path)` | The user should make sure `path` is in their `$PATH` environment variable
+| `zsh_path_helper(path)`           | Zsh users must take additional steps to make sure `path` is in their `$PATH` environment variable
 | `logout`                          | The user should log out and log back in to complete installation
 | `reboot`                          | The user should reboot to complete installation
+| `assistive_devices`               | The user should grant the application access to assitive devices
 | `files_in_usr_local`              | The Cask installs files to `/usr/local`, which may confuse Homebrew
 | `arch_only(list)`                 | The Cask only supports certain architectures.  Currently valid elements of `list` are `intel-32` and `intel-64`
 | `os_version_only(list)`           | The Cask only supports certain OS X Versions.  Currently valid elements of `list` are `10.5`, `10.6`, `10.7`, `10.8`, and `10.9`
@@ -184,9 +186,11 @@ of key/value pairs appended to `url`:
 
 | key                | value       |
 | ------------------ | ----------- |
+| `:using`           | the symbol `:post` is the only legal value
 | `:cookies`         | a hash of cookies to be set in the download request
 | `:referer`         | a string holding the URL to set as referrer in the download request
 | `:user_agent`      | a string holding the user agent to set for the download request. Can also be set to the symbol `:fake`, which will use a generic Browser-like user agent string. we prefer `:fake` when the server does not require a specific user agent.
+| `:data`            | a hash of parameters to be set in the POST request
 
 Example: [java.rb](../Casks/java.rb)
 

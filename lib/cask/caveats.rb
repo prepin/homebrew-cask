@@ -59,9 +59,20 @@ class Cask::CaveatsDSL
     EOS
   end
 
+  def zsh_path_helper(path)
+    puts <<-EOS.undent
+    To use #{@cask}, zsh users may need to add the following line to their
+    ~/.zprofile.  (Among other effects, #{path} will be added to the
+    PATH environment variable):
+
+      eval `/usr/libexec/path_helper -s`
+
+    EOS
+  end
+
   def files_in_usr_local
     localpath = '/usr/local'
-    if localpath.casecmp(HOMEBREW_PREFIX)
+    if HOMEBREW_PREFIX.to_s.downcase.index(localpath) == 0
       puts <<-EOS.undent
       Cask #{@cask} installs files under "#{localpath}".  The presence of such
       files can cause warnings when running "brew doctor", which is considered
@@ -82,6 +93,16 @@ class Cask::CaveatsDSL
   def reboot
     puts <<-EOS.undent
     You must reboot for the installation of #{@cask} to take effect.
+
+    EOS
+  end
+
+  def assistive_devices
+    puts <<-EOS.undent
+    To use #{@cask}, you may need to give it access to assistive
+    devices (Accessibility).  For OS X Mavericks:
+
+      System Preferences / Security & Privacy / Privacy / Accessibility
 
     EOS
   end
